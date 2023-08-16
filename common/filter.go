@@ -15,13 +15,13 @@ type Filterable interface {
 func (q Filter) GetMap(root any) map[string]any {
 	immutable := reflect.ValueOf(root)
 	typeStruct := reflect.TypeOf(root)
+
 	//v := reflect.ValueOf(&structType).Elem()
 	queryParms := map[string]any{}
 	for i := 0; i < immutable.NumField(); i++ {
 
 		fieldValue := immutable.Field(i)
 		fieldType := typeStruct.Field(i)
-
 		// This case are ignore as are not fields for filter
 		// one per user choice and the other one is the Filter composition struct
 		if fieldType.Tag.Get("filter") == "ignore" {

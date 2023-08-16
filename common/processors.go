@@ -16,12 +16,6 @@ func (p Processor[E]) New() Processor[E] {
 	}
 }
 
-func NewPostProcessor[E any]() Processor[E] {
-	return Processor[E]{
-		PostBulkProcessorList: []PostBulkProcessorFunc[E]{},
-	}
-}
-
 func (p *Processor[E]) RunOnMany(data []E) *errors.CommandError {
 	for _, p := range p.PostBulkProcessorList {
 		errProcess := p(data)
